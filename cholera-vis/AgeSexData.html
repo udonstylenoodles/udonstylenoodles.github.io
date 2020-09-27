@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Cholera Fatalities by Age/Sex</title>
+
+	<!-- Custom fonts for this template-->
+	<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+	<link
+		href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+		rel="stylesheet">
+
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+	<!-- Custom styles for this template-->
+	<link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+	<!-- Plotly js -->
+	<script src="js/plotly.js"></script>
+</head>
+
+<body id="page-top">
+
+	<!-- Page Wrapper -->
+	<div id="wrapper">
+
+		<!-- Sidebar -->
+		<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+			<!-- Sidebar - Brand -->
+			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+				<div class="sidebar-brand-icon rotate-n-15">
+				</div>
+				<div class="sidebar-brand-text mx-3">gundan</div>
+			</a>
+
+			<!-- Divider -->
+			<hr class="sidebar-divider my-0">
+
+			<!-- Divider -->
+			<hr class="sidebar-divider">
+
+			<!-- Heading -->
+			<div class="sidebar-heading">
+				Cholera Data Visualization
+			</div>
+
+			<!-- Nav Item - Charts -->
+			<li class="nav-item">
+				<a class="nav-link" href="AttacksAndDeaths.html">
+					<span>Attacks and Deaths</span></a>
+			</li>
+
+			<!-- Nav Item - Age/Sex Data -->
+			<li class="nav-item active">
+				<a class="nav-link" href="AgeSexData.html">
+					<span>Age/Sex Data</span></a>
+			</li>
+
+			<!-- Nav Item - Death Locations -->
+			<li class="nav-item">
+				<a class="nav-link" href="DeathLocations.html">
+					<span>Death Locations</span></a>
+			</li>
+
+			<!-- Divider -->
+			<hr class="sidebar-divider d-none d-md-block">
+
+			<!-- Sidebar Toggler (Sidebar) -->
+			<div class="text-center d-none d-md-inline">
+				<button class="rounded-circle border-0" id="sidebarToggle"></button>
+			</div>
+
+		</ul>
+		<!-- End of Sidebar -->
+
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
+
+			<!-- Main Content -->
+			<div id="content">
+
+				<br>
+
+				<!-- Sidebar Toggle (Topbar) -->
+				<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+					<i class="fa fa-bars"></i>
+				</button>
+
+				<!-- Topbar Navbar -->
+				<ul class="navbar-nav ml-auto"></ul>
+
+				</nav>
+				<!-- End of Topbar -->
+
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
+
+					<!-- Page Heading -->
+					<h1 class="h3 mb-4 text-gray-800">Cholera Fatalities by Age/Sex</h1>
+
+					<!-- Content Row -->
+					<div class="row">
+
+						<div class="col-lg-12">
+							<div class="card shadow mb-4">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-4">
+											<div id="NaplesTable"></div>
+										</div>
+										<div class="col-8">
+											<div id="NaplesBarGraph"></div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<!-- Content Row -->
+					<div class="row">
+
+						<div class="col-lg-12">
+							<div class="card shadow mb-4">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-4">
+											<div id="UKTable"></div>
+										</div>
+										<div class="col-8">
+											<div id="UKBarGraph"></div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+				<!-- /.container-fluid -->
+
+			</div>
+			<!-- End of Main Content -->
+
+			<!-- Footer -->
+			<footer class="sticky-footer bg-white">
+				<div class="container my-auto">
+					<div class="copyright text-center my-auto">
+						<span></span>
+					</div>
+				</div>
+			</footer>
+			<!-- End of Footer -->
+
+		</div>
+		<!-- End of Content Wrapper -->
+
+	</div>
+	<!-- End of Page Wrapper -->
+
+	<!-- Bootstrap core JavaScript-->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Core plugin JavaScript-->
+	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	<!-- Custom scripts for all pages-->
+	<script src="js/sb-admin-2.min.js"></script>
+
+	<script>
+		(function () {
+			window.PLOTLYENV = { 'BASE_URL': 'https://plotly.com' };
+
+			var gd = document.getElementById('NaplesTable')
+			var resizeDebounce = null;
+
+			function resizePlot() {
+				var bb = gd.getBoundingClientRect();
+				Plotly.relayout(gd, {
+					width: bb.width,
+					height: bb.height
+				});
+			}
+
+
+
+
+			Plotly.plot(gd, {
+				data: [{ "meta": { "columnNames": { "cells": { "fill": { "color": "J" }, "values": "age - male - female" }, "header": { "fill": { "color": "G" }, "font": { "color": "H" }, "values": "D - E - F" }, "columnwidth": "I" } }, "mode": "markers", "type": "table", "cells": { "fill": { "meta": { "columnNames": { "color": "J" } }, "colorsrc": "gundan:16:a75033*", "color": ["#EBF0F8", "lightblue", "pink"] }, "font": { "size": 12, "family": "Open Sans" }, "line": { "color": "rgb(128, 128, 128)" }, "meta": { "columnNames": { "values": "age - male - female" } }, "align": "right", "height": 26, "valuessrc": "gundan:16:a8a90d,71232c,84fd24*", "values": [["0-1", "2-5", "6-10", "11-15", "16-20", "21-40", "41-60", "61-80", "over 80"], ["8.2", "14.0", "12.1", "7.8", "7.2", "12.1", "13.7", "20.5", "39.6"], ["8.9", "14.7", "11.2", "7.1", "7.2", "11.8", "12.9", "20.5", "37.8"]] }, "header": { "fill": { "meta": { "columnNames": { "color": "G" } }, "colorsrc": "gundan:16:3c61bf", "color": ["gray"] }, "font": { "meta": { "columnNames": { "color": "H" } }, "size": 14, "family": "Open Sans", "colorsrc": "gundan:16:6bb7f5", "color": ["white"] }, "line": { "color": "rgb(128, 128, 128)" }, "meta": { "columnNames": { "values": "D - E - F" } }, "height": 30, "valuessrc": "gundan:16:b54d9b,da55c2,1f82cf*", "values": [["Age"], ["Male Fatality", "<i>per 10,000<\/i>"], ["Female Fatality", "<i>per 10,000<\/i>"]] }, "columnwidthsrc": "gundan:16:6f77ca", "columnwidth": ["5", "10", "10"] }],
+				layout: { "font": { "family": "Open Sans" }, "title": { "text": "Cholera Fatalities by Age Group in Naples, Italy<br><i><sup>1884 - 1911<sup><\/i>" }, "width": 400, "xaxis": { "range": [-1, 6], "autorange": true }, "yaxis": { "range": [-1, 4], "autorange": true }, "height": 420, "margin": { "b": 30, "l": 20, "r": 20, "t": 80 }, "autosize": false, "template": { "data": { "bar": [{ "type": "bar", "marker": { "colorbar": { "ticks": "", "outlinewidth": 0 } } }], "table": [{ "type": "table", "cells": { "fill": { "color": "#EBF0F8" }, "line": { "color": "white" } }, "header": { "fill": { "color": "#C8D4E3" }, "line": { "color": "white" } } }], "carpet": [{ "type": "carpet", "aaxis": { "gridcolor": "#C8D4E3", "linecolor": "#C8D4E3", "endlinecolor": "#2a3f5f", "minorgridcolor": "#C8D4E3", "startlinecolor": "#2a3f5f" }, "baxis": { "gridcolor": "#C8D4E3", "linecolor": "#C8D4E3", "endlinecolor": "#2a3f5f", "minorgridcolor": "#C8D4E3", "startlinecolor": "#2a3f5f" } }], "mesh3d": [{ "type": "mesh3d", "colorbar": { "ticks": "", "outlinewidth": 0 } }], "contour": [{ "type": "contour", "colorbar": { "ticks": "", "outlinewidth": 0 }, "autocolorscale": true }], "heatmap": [{ "type": "heatmap", "colorbar": { "ticks": "", "outlinewidth": 0 }, "autocolorscale": true }], "scatter": [{ "type": "scatter", "marker": { "colorbar": { "ticks": "", "outlinewidth": 0 } } }], "surface": [{ "type": "surface", "colorbar": { "ticks": "", "outlinewidth": 0 } }], "heatmapgl": [{ "type": "heatmapgl", "colorbar": { "ticks": "", "outlinewidth": 0 } }], "histogram": [{ "type": "histogram", "marker": { "colorbar": { "ticks": "", "outlinewidth": 0 } } }], "parcoords": [{ "line": { "colorbar": { "ticks": "", "outlinewidth": 0 } }, "type": "parcoords" }], "scatter3d": [{ "type": "scatter3d", "marker": { "colorbar": { "ticks": "", "outlinewidth": 0 } } }], "scattergl": [{ "type": "scattergl", "marker": { "colorbar": { "ticks": "", "outlinewidth": 0 } } }], "choropleth": [{ "type": "choropleth", "colorbar": { "ticks": "", "outlinewidth": 0 } }], "scattergeo": [{ "type": "scattergeo", "marker": { "colorbar": { "ticks": "", "outlinewidth": 0 } } }], "histogram2d": [{ "type": "histogram2d", "colorbar": { "ticks": "", "outlinewidth": 0 }, "autocolorscale": true }], "scatterpolar": [{ "type": "scatterpolar", "marker": { "colorbar": { "ticks": "", "outlinewidth": 0 } } }], "contourcarpet": [{ "type": "contourcarpet", "colorbar": { "ticks": "", "outlinewidth": 0 } }], "scattercarpet": [{ "type": "scattercarpet", "marker": { "colorbar": { "ticks": "", "outlinewidth": 0 } } }], "scattermapbox": [{ "type": "scattermapbox", "marker": { "colorbar": { "ticks": "", "outlinewidth": 0 } } }], "scatterpolargl": [{ "type": "scatterpolargl", "marker": { "colorbar": { "ticks": "", "outlinewidth": 0 } } }], "scatterternary": [{ "type": "scatterternary", "marker": { "colorbar": { "ticks": "", "outlinewidth": 0 } } }], "histogram2dcontour": [{ "type": "histogram2dcontour", "colorbar": { "ticks": "", "outlinewidth": 0 }, "autocolorscale": true }] }, "layout": { "geo": { "bgcolor": "white", "showland": true, "lakecolor": "white", "landcolor": "white", "showlakes": true, "subunitcolor": "#C8D4E3" }, "font": { "color": "#2a3f5f" }, "polar": { "bgcolor": "white", "radialaxis": { "ticks": "", "gridcolor": "#EBF0F8", "linecolor": "#EBF0F8" }, "angularaxis": { "ticks": "", "gridcolor": "#EBF0F8", "linecolor": "#EBF0F8" } }, "scene": { "xaxis": { "ticks": "", "gridcolor": "#DFE8F3", "gridwidth": 2, "linecolor": "#EBF0F8", "zerolinecolor": "#EBF0F8", "showbackground": true, "backgroundcolor": "white" }, "yaxis": { "ticks": "", "gridcolor": "#DFE8F3", "gridwidth": 2, "linecolor": "#EBF0F8", "zerolinecolor": "#EBF0F8", "showbackground": true, "backgroundcolor": "white" }, "zaxis": { "ticks": "", "gridcolor": "#DFE8F3", "gridwidth": 2, "linecolor": "#EBF0F8", "zerolinecolor": "#EBF0F8", "showbackground": true, "backgroundcolor": "white" } }, "title": { "x": 0.05 }, "xaxis": { "ticks": "", "gridcolor": "#EBF0F8", "linecolor": "#EBF0F8", "automargin": true, "zerolinecolor": "#EBF0F8", "zerolinewidth": 2 }, "yaxis": { "ticks": "", "gridcolor": "#EBF0F8", "linecolor": "#EBF0F8", "automargin": true, "zerolinecolor": "#EBF0F8", "zerolinewidth": 2 }, "ternary": { "aaxis": { "ticks": "", "gridcolor": "#DFE8F3", "linecolor": "#A2B1C6" }, "baxis": { "ticks": "", "gridcolor": "#DFE8F3", "linecolor": "#A2B1C6" }, "caxis": { "ticks": "", "gridcolor": "#DFE8F3", "linecolor": "#A2B1C6" }, "bgcolor": "white" }, "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#19d3f3", "#e763fa", "#fecb52", "#ffa15a", "#ff6692", "#b6e880"], "hovermode": "closest", "colorscale": { "diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]], "sequential": [[0, "#0508b8"], [0.0893854748603352, "#1910d8"], [0.1787709497206704, "#3c19f0"], [0.2681564245810056, "#6b1cfb"], [0.3575418994413408, "#981cfd"], [0.44692737430167595, "#bf1cfd"], [0.5363128491620112, "#dd2bfd"], [0.6256983240223464, "#f246fe"], [0.7150837988826816, "#fc67fd"], [0.8044692737430168, "#fe88fc"], [0.8938547486033519, "#fea5fd"], [0.9832402234636871, "#febefe"], [1, "#fec3fe"]], "sequentialminus": [[0, "#0508b8"], [0.0893854748603352, "#1910d8"], [0.1787709497206704, "#3c19f0"], [0.2681564245810056, "#6b1cfb"], [0.3575418994413408, "#981cfd"], [0.44692737430167595, "#bf1cfd"], [0.5363128491620112, "#dd2bfd"], [0.6256983240223464, "#f246fe"], [0.7150837988826816, "#fc67fd"], [0.8044692737430168, "#fe88fc"], [0.8938547486033519, "#fea5fd"], [0.9832402234636871, "#febefe"], [1, "#fec3fe"]] }, "plot_bgcolor": "white", "paper_bgcolor": "white", "shapedefaults": { "line": { "width": 0 }, "opacity": 0.4, "fillcolor": "#506784" }, "annotationdefaults": { "arrowhead": 0, "arrowcolor": "#506784", "arrowwidth": 1 } }, "themeRef": "PLOTLY_WHITE" }, "uniformtext": { "mode": "show", "minsize": 1 } },
+				frames: [],
+				config: { "showLink": false, "linkText": "Export to plotly.com", "mapboxAccessToken": "pk.eyJ1IjoiY2hyaWRkeXAiLCJhIjoiY2lxMnVvdm5iMDA4dnhsbTQ5aHJzcGs0MyJ9.X9o_rzNLNesDxdra4neC_A" }
+			});
+
+		}());
+
+		(function () {
+			window.PLOTLYENV = { 'BASE_URL': 'https://plotly.com' };
+
+			var gd = document.getElementById('NaplesBarGraph')
+			var resizeDebounce = null;
+
+			function resizePlot() {
+				var bb = gd.getBoundingClientRect();
+				Plotly.relayout(gd, {
+					width: bb.width,
+					height: bb.height
+				});
+			}
+
+
+			window.addEventListener('resize', function () {
+				if (resizeDebounce) {
+					window.clearTimeout(resizeDebounce);
+				}
+				resizeDebounce = window.setTimeout(resizePlot, 100);
+			});
+
+
+
+			Plotly.plot(gd, {
+				data: [{ "meta": { "columnNames": { "x": "age", "y": "male" } }, "mode": "markers", "name": "Male Fatalities", "type": "bar", "xsrc": "gundan:16:a8a90d", "x": ["0-1", "2-5", "6-10", "11-15", "16-20", "21-40", "41-60", "61-80", "over 80"], "ysrc": "gundan:16:71232c", "y": ["8.2", "14.0", "12.1", "7.8", "7.2", "12.1", "13.7", "20.5", "39.6"], "marker": { "line": { "width": 0 }, "color": "rgb(173, 216, 230)" }, "orientation": "v" }, { "meta": { "columnNames": { "x": "age", "y": "female" } }, "name": "Female Fatalities", "type": "bar", "xsrc": "gundan:16:a8a90d", "x": ["0-1", "2-5", "6-10", "11-15", "16-20", "21-40", "41-60", "61-80", "over 80"], "ysrc": "gundan:16:84fd24", "y": ["8.9", "14.7", "11.2", "7.1", "7.2", "11.8", "12.9", "20.5", "37.8"], "xaxis": "x", "marker": { "color": "rgb(255, 192, 203)", "opacity": 1 }, "visible": true, "orientation": "v" }],
+				layout: { "title": { "text": "Cholera Fatalities By Age Group in Naples, Italy<br><i><sup>1884 - 1911<\/sup><\/i>" }, "xaxis": { "type": "category", "range": [-0.5, 8.5], "title": { "font": { "size": 14, "family": "Open Sans" }, "text": "Age Group" }, "tickfont": { "size": 14 }, "tickmode": "auto", "autorange": true }, "yaxis": { "type": "linear", "range": [0, 41.684210526315795], "title": { "font": { "size": 14, "family": "Open Sans" }, "text": "Fatalities per 10,000 inhabitants" }, "tickfont": { "size": 14 }, "autorange": true }, "legend": { "x": 0.015886507856181075, "y": 0.9596774193548387, "font": { "size": 13, "family": "Open Sans" }, "borderwidth": 1 }, "barmode": "group", "autosize": true, "template": { "data": { "bar": [{ "type": "bar", "marker": { "colorbar": { "ticks": "", "outlinewidth": 0 } } }], "table": [{ "type": "table", "cells": { "fill": { "color": "#EBF0F8" }, "line": { "color": "white" } }, "header": { "fill": { "color": "#C8D4E3" }, "line": { "color": "white" } } }], "carpet": [{ "type": "carpet", "aaxis": { "gridcolor": "#C8D4E3", "linecolor": "#C8D4E3", "endlinecolor": "#2a3f5f", "minorgridcolor": "#C8D4E3", "startlinecolor": "#2a3f5f" }, "baxis": { "gridcolor": "#C8D4E3", "linecolor": "#C8D4E3", "endlinecolor": "#2a3f5f", "minorgridcolor": "#C8D4E3", "startlinecolor": "#2a3f5f" } }], "mesh3d": [{ "type": "mesh3d", "colorbar": { "ticks": "", "outlinewidth": 0 } }], "contour": [{ "type": "contour", "colorbar": { "ticks": "", "outlinewidth": 0 }, "autocolorscale": true }], "heatmap": [{ "type": "heatmap", "colorbar": { "ticks": "", "outlinewidth": 0 }, "autocolorscale": true }], "scatter": [{ "type": "scatter", "marker": { "colorbar": { "ticks": "", "outlinewidth": 0 } } }], "surface": [{ "type": "surface", "colorbar": { "ticks": "", "outlinewidth": 0 } }], "heatmapgl": [{ "type": "heatmapgl", "colorbar": { "ticks": "", "outlinewidth": 0 } }], "histogram": [{ "type": "histogram", "marker": { "colorbar": { "ticks": "", "outlinewidth": 0 } } }], "parcoords": [{ "line": { "colorbar": { "ticks": "", "outlinewidth": 0 } }, "type": "parcoords" }], "scatter3d": [{ "type": "scatter3d", "marker": { "colorbar": { "ticks": "", "outlinewidth": 0 } } }], "scattergl": [{ "type": "scattergl", "marker": { "colorbar": { "ticks": "", "outlinewidth": 0 } } }], "choropleth": [{ "type": "choropleth", "colorbar": { "ticks": "", "outlinewidth": 0 } }], "scattergeo": [{ "type": "scattergeo", "marker": { "colorbar": { "ticks": "", "outlinewidth": 0 } } }], "histogram2d": [{ "type": "histogram2d", "colorbar": { "ticks": "", "outlinewidth": 0 }, "autocolorscale": true }], "scatterpolar": [{ "type": "scatterpolar", "marker": { "colorbar": { "ticks": "", "outlinewidth": 0 } } }], "contourcarpet": [{ "type": "contourcarpet", "colorbar": { "ticks": "", "outlinewidth": 0 } }], "scattercarpet": [{ "type": "scattercarpet", "marker": { "colorbar": { "ticks": "", "outlinewidth": 0 } } }], "scattermapbox": [{ "type": "scattermapbox", "marker": { "colorbar": { "ticks": "", "outlinewidth": 0 } } }], "scatterpolargl": [{ "type": "scatterpolargl", "marker": { "colorbar": { "ticks": "", "outlinewidth": 0 } } }], "scatterternary": [{ "type": "scatterternary", "marker": { "colorbar": { "ticks": "", "outlinewidth": 0 } } }], "histogram2dcontour": [{ "type": "histogram2dcontour", "colorbar": { "ticks": "", "outlinewidth": 0 }, "autocolorscale": true }] }, "layout": { "geo": { "bgcolor": "white", "showland": true, "lakecolor": "white", "landcolor": "white", "showlakes": true, "subunitcolor": "#C8D4E3" }, "font": { "color": "#2a3f5f" }, "polar": { "bgcolor": "white", "radialaxis": { "ticks": "", "gridcolor": "#EBF0F8", "linecolor": "#EBF0F8" }, "angularaxis": { "ticks": "", "gridcolor": "#EBF0F8", "linecolor": "#EBF0F8" } }, "scene": { "xaxis": { "ticks": "", "gridcolor": "#DFE8F3", "gridwidth": 2, "linecolor": "#EBF0F8", "zerolinecolor": "#EBF0F8", "showbackground": true, "backgroundcolor": "white" }, "yaxis": { "ticks": "", "gridcolor": "#DFE8F3", "gridwidth": 2, "linecolor": "#EBF0F8", "zerolinecolor": "#EBF0F8", "showbackground": true, "backgroundcolor": "white" }, "zaxis": { "ticks": "", "gridcolor": "#DFE8F3", "gridwidth": 2, "linecolor": "#EBF0F8", "zerolinecolor": "#EBF0F8", "showbackground": true, "backgroundcolor": "white" } }, "title": { "x": 0.05 }, "xaxis": { "ticks": "", "gridcolor": "#EBF0F8", "linecolor": "#EBF0F8", "automargin": true, "zerolinecolor": "#EBF0F8", "zerolinewidth": 2 }, "yaxis": { "ticks": "", "gridcolor": "#EBF0F8", "linecolor": "#EBF0F8", "automargin": true, "zerolinecolor": "#EBF0F8", "zerolinewidth": 2 }, "ternary": { "aaxis": { "ticks": "", "gridcolor": "#DFE8F3", "linecolor": "#A2B1C6" }, "baxis": { "ticks": "", "gridcolor": "#DFE8F3", "linecolor": "#A2B1C6" }, "caxis": { "ticks": "", "gridcolor": "#DFE8F3", "linecolor": "#A2B1C6" }, "bgcolor": "white" }, "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#19d3f3", "#e763fa", "#fecb52", "#ffa15a", "#ff6692", "#b6e880"], "hovermode": "closest", "colorscale": { "diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]], "sequential": [[0, "#0508b8"], [0.0893854748603352, "#1910d8"], [0.1787709497206704, "#3c19f0"], [0.2681564245810056, "#6b1cfb"], [0.3575418994413408, "#981cfd"], [0.44692737430167595, "#bf1cfd"], [0.5363128491620112, "#dd2bfd"], [0.6256983240223464, "#f246fe"], [0.7150837988826816, "#fc67fd"], [0.8044692737430168, "#fe88fc"], [0.8938547486033519, "#fea5fd"], [0.9832402234636871, "#febefe"], [1, "#fec3fe"]], "sequentialminus": [[0, "#0508b8"], [0.0893854748603352, "#1910d8"], [0.1787709497206704, "#3c19f0"], [0.2681564245810056, "#6b1cfb"], [0.3575418994413408, "#981cfd"], [0.44692737430167595, "#bf1cfd"], [0.5363128491620112, "#dd2bfd"], [0.6256983240223464, "#f246fe"], [0.7150837988826816, "#fc67fd"], [0.8044692737430168, "#fe88fc"], [0.8938547486033519, "#fea5fd"], [0.9832402234636871, "#febefe"], [1, "#fec3fe"]] }, "plot_bgcolor": "white", "paper_bgcolor": "white", "shapedefaults": { "line": { "width": 0 }, "opacity": 0.4, "fillcolor": "#506784" }, "annotationdefaults": { "arrowhead": 0, "arrowcolor": "#506784", "arrowwidth": 1 } }, "themeRef": "PLOTLY_WHITE" } },
+				frames: [],
+				config: { "showLink": false, "linkText": "Export to plotly.com", "mapboxAccessToken": "pk.eyJ1IjoiY2hyaWRkeXAiLCJhIjoiY2lxMnVvdm5iMDA4dnhsbTQ5aHJzcGs0MyJ9.X9o_rzNLNesDxdra4neC_A" }
+			});
+
+		}());
+
+		(function(){
+                window.PLOTLYENV={'BASE_URL': 'https://plotly.com'};
+
+                var gd = document.getElementById('UKTable')
+                var resizeDebounce = null;
+
+                function resizePlot() {
+                    var bb = gd.getBoundingClientRect();
+                    Plotly.relayout(gd, {
+                        width: bb.width,
+                        height: bb.height
+                    });
+                }
+
+                
+
+                
+                Plotly.plot(gd, {
+                    data: [{"meta": {"columnNames": {"cells": {"fill": {"color": "G"}, "values": "age - male - female"}, "header": {"fill": {"color": "I"}, "font": {"color": "J"}, "values": "D - E - F"}, "columnwidth": "H"}}, "mode": "markers", "type": "table", "cells": {"fill": {"meta": {"columnNames": {"color": "G"}}, "colorsrc": "gundan:19:700985*", "color": ["#EBF0F8", "lightblue", "pink"]}, "line": {"color": "rgb(128, 128, 128)", "width": 1}, "meta": {"columnNames": {"values": "age - male - female"}}, "align": "right", "height": 26, "valuessrc": "gundan:19:d92f6c,ba6071,f8e127*", "values": [["0-9", "10-19", "20-29", "30-39", "40-49", "50-59", "60-69", "70-79", "80+", "<b>Total:<\/b>"], ["2,075,391", "1,711,664", "1,395,091", "1,073,914", "810,979", "560,534", "351,893", "166,194", "40,772", "<b>8,186,432<\/b>"], ["2,065,096", "1,711,627", "1,542,876", "1,140,383", "845,260", "592,970", "399,019", "199,326", "55,704", "<b>8,552,261<\/b>"]]}, "header": {"fill": {"meta": {"columnNames": {"color": "I"}}, "colorsrc": "gundan:19:0aa958", "color": ["gray"]}, "font": {"meta": {"columnNames": {"color": "J"}}, "size": 14, "colorsrc": "gundan:19:c4f963", "color": ["white"]}, "line": {"color": "rgb(128, 128, 128)"}, "meta": {"columnNames": {"values": "D - E - F"}}, "align": "right", "valuessrc": "gundan:19:f505d0,f4f204,731130*", "values": [["Age"], ["Male"], ["Female"]]}, "columnwidthsrc": "gundan:19:28f2be", "columnwidth": ["5", "10", "10"]}],
+                    layout: {"font": {"family": "Open Sans"}, "title": {"text": "UK Population According to 1851 Census"}, "width": 400, "xaxis": {"range": [-1, 6], "autorange": true}, "yaxis": {"range": [-1, 4], "autorange": true}, "height": 470, "margin": {"b": 20, "l": 20, "r": 20, "t": 80}, "autosize": false, "template": {"data": {"bar": [{"type": "bar", "marker": {"colorbar": {"ticks": "", "outlinewidth": 0}}}], "table": [{"type": "table", "cells": {"fill": {"color": "#EBF0F8"}, "line": {"color": "white"}}, "header": {"fill": {"color": "#C8D4E3"}, "line": {"color": "white"}}}], "carpet": [{"type": "carpet", "aaxis": {"gridcolor": "#C8D4E3", "linecolor": "#C8D4E3", "endlinecolor": "#2a3f5f", "minorgridcolor": "#C8D4E3", "startlinecolor": "#2a3f5f"}, "baxis": {"gridcolor": "#C8D4E3", "linecolor": "#C8D4E3", "endlinecolor": "#2a3f5f", "minorgridcolor": "#C8D4E3", "startlinecolor": "#2a3f5f"}}], "mesh3d": [{"type": "mesh3d", "colorbar": {"ticks": "", "outlinewidth": 0}}], "contour": [{"type": "contour", "colorbar": {"ticks": "", "outlinewidth": 0}, "autocolorscale": true}], "heatmap": [{"type": "heatmap", "colorbar": {"ticks": "", "outlinewidth": 0}, "autocolorscale": true}], "scatter": [{"type": "scatter", "marker": {"colorbar": {"ticks": "", "outlinewidth": 0}}}], "surface": [{"type": "surface", "colorbar": {"ticks": "", "outlinewidth": 0}}], "heatmapgl": [{"type": "heatmapgl", "colorbar": {"ticks": "", "outlinewidth": 0}}], "histogram": [{"type": "histogram", "marker": {"colorbar": {"ticks": "", "outlinewidth": 0}}}], "parcoords": [{"line": {"colorbar": {"ticks": "", "outlinewidth": 0}}, "type": "parcoords"}], "scatter3d": [{"type": "scatter3d", "marker": {"colorbar": {"ticks": "", "outlinewidth": 0}}}], "scattergl": [{"type": "scattergl", "marker": {"colorbar": {"ticks": "", "outlinewidth": 0}}}], "choropleth": [{"type": "choropleth", "colorbar": {"ticks": "", "outlinewidth": 0}}], "scattergeo": [{"type": "scattergeo", "marker": {"colorbar": {"ticks": "", "outlinewidth": 0}}}], "histogram2d": [{"type": "histogram2d", "colorbar": {"ticks": "", "outlinewidth": 0}, "autocolorscale": true}], "scatterpolar": [{"type": "scatterpolar", "marker": {"colorbar": {"ticks": "", "outlinewidth": 0}}}], "contourcarpet": [{"type": "contourcarpet", "colorbar": {"ticks": "", "outlinewidth": 0}}], "scattercarpet": [{"type": "scattercarpet", "marker": {"colorbar": {"ticks": "", "outlinewidth": 0}}}], "scattermapbox": [{"type": "scattermapbox", "marker": {"colorbar": {"ticks": "", "outlinewidth": 0}}}], "scatterpolargl": [{"type": "scatterpolargl", "marker": {"colorbar": {"ticks": "", "outlinewidth": 0}}}], "scatterternary": [{"type": "scatterternary", "marker": {"colorbar": {"ticks": "", "outlinewidth": 0}}}], "histogram2dcontour": [{"type": "histogram2dcontour", "colorbar": {"ticks": "", "outlinewidth": 0}, "autocolorscale": true}]}, "layout": {"geo": {"bgcolor": "white", "showland": true, "lakecolor": "white", "landcolor": "white", "showlakes": true, "subunitcolor": "#C8D4E3"}, "font": {"color": "#2a3f5f"}, "polar": {"bgcolor": "white", "radialaxis": {"ticks": "", "gridcolor": "#EBF0F8", "linecolor": "#EBF0F8"}, "angularaxis": {"ticks": "", "gridcolor": "#EBF0F8", "linecolor": "#EBF0F8"}}, "scene": {"xaxis": {"ticks": "", "gridcolor": "#DFE8F3", "gridwidth": 2, "linecolor": "#EBF0F8", "zerolinecolor": "#EBF0F8", "showbackground": true, "backgroundcolor": "white"}, "yaxis": {"ticks": "", "gridcolor": "#DFE8F3", "gridwidth": 2, "linecolor": "#EBF0F8", "zerolinecolor": "#EBF0F8", "showbackground": true, "backgroundcolor": "white"}, "zaxis": {"ticks": "", "gridcolor": "#DFE8F3", "gridwidth": 2, "linecolor": "#EBF0F8", "zerolinecolor": "#EBF0F8", "showbackground": true, "backgroundcolor": "white"}}, "title": {"x": 0.05}, "xaxis": {"ticks": "", "gridcolor": "#EBF0F8", "linecolor": "#EBF0F8", "automargin": true, "zerolinecolor": "#EBF0F8", "zerolinewidth": 2}, "yaxis": {"ticks": "", "gridcolor": "#EBF0F8", "linecolor": "#EBF0F8", "automargin": true, "zerolinecolor": "#EBF0F8", "zerolinewidth": 2}, "ternary": {"aaxis": {"ticks": "", "gridcolor": "#DFE8F3", "linecolor": "#A2B1C6"}, "baxis": {"ticks": "", "gridcolor": "#DFE8F3", "linecolor": "#A2B1C6"}, "caxis": {"ticks": "", "gridcolor": "#DFE8F3", "linecolor": "#A2B1C6"}, "bgcolor": "white"}, "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#19d3f3", "#e763fa", "#fecb52", "#ffa15a", "#ff6692", "#b6e880"], "hovermode": "closest", "colorscale": {"diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]], "sequential": [[0, "#0508b8"], [0.0893854748603352, "#1910d8"], [0.1787709497206704, "#3c19f0"], [0.2681564245810056, "#6b1cfb"], [0.3575418994413408, "#981cfd"], [0.44692737430167595, "#bf1cfd"], [0.5363128491620112, "#dd2bfd"], [0.6256983240223464, "#f246fe"], [0.7150837988826816, "#fc67fd"], [0.8044692737430168, "#fe88fc"], [0.8938547486033519, "#fea5fd"], [0.9832402234636871, "#febefe"], [1, "#fec3fe"]], "sequentialminus": [[0, "#0508b8"], [0.0893854748603352, "#1910d8"], [0.1787709497206704, "#3c19f0"], [0.2681564245810056, "#6b1cfb"], [0.3575418994413408, "#981cfd"], [0.44692737430167595, "#bf1cfd"], [0.5363128491620112, "#dd2bfd"], [0.6256983240223464, "#f246fe"], [0.7150837988826816, "#fc67fd"], [0.8044692737430168, "#fe88fc"], [0.8938547486033519, "#fea5fd"], [0.9832402234636871, "#febefe"], [1, "#fec3fe"]]}, "plot_bgcolor": "white", "paper_bgcolor": "white", "shapedefaults": {"line": {"width": 0}, "opacity": 0.4, "fillcolor": "#506784"}, "annotationdefaults": {"arrowhead": 0, "arrowcolor": "#506784", "arrowwidth": 1}}, "themeRef": "PLOTLY_WHITE"}},
+                    frames: [],
+                    config: {"showLink": false, "linkText": "Export to plotly.com", "mapboxAccessToken": "pk.eyJ1IjoiY2hyaWRkeXAiLCJhIjoiY2lxMnVvdm5iMDA4dnhsbTQ5aHJzcGs0MyJ9.X9o_rzNLNesDxdra4neC_A"}
+                });
+                
+		   }());
+		   
+		   (function(){
+                window.PLOTLYENV={'BASE_URL': 'https://plotly.com'};
+
+                var gd = document.getElementById('UKBarGraph')
+                var resizeDebounce = null;
+
+                function resizePlot() {
+                    var bb = gd.getBoundingClientRect();
+                    Plotly.relayout(gd, {
+                        width: bb.width,
+                        height: bb.height
+                    });
+                }
+
+                
+                window.addEventListener('resize', function() {
+                    if (resizeDebounce) {
+                        window.clearTimeout(resizeDebounce);
+                    }
+                    resizeDebounce = window.setTimeout(resizePlot, 100);
+                });
+                
+
+                
+                Plotly.plot(gd, {
+                    data: [{"meta": {"columnNames": {"x": "age", "y": "male"}}, "mode": "markers", "name": "Male Population", "type": "bar", "xsrc": "gundan:21:7b9323", "x": ["0-9", "10-19", "20-29", "30-39", "40-49", "50-59", "60-69", "70-79", "80+"], "ysrc": "gundan:21:54d64a", "y": ["2,075,391", "1,711,664", "1,395,091", "1,073,914", "810,979", "560,534", "351,893", "166,194", "40,772"], "marker": {"color": "rgb(173, 216, 230)"}, "visible": true, "orientation": "v"}, {"meta": {"columnNames": {"x": "age", "y": "female"}}, "name": "Female Population", "type": "bar", "xsrc": "gundan:21:7b9323", "x": ["0-9", "10-19", "20-29", "30-39", "40-49", "50-59", "60-69", "70-79", "80+"], "ysrc": "gundan:21:230a40", "y": ["2,065,096", "1,711,627", "1,542,876", "1,140,383", "845,260", "592,970", "399,019", "199,326", "55,704"], "marker": {"color": "rgb(255, 192, 203)"}, "visible": true, "orientation": "v"}],
+                    layout: {"font": {"size": 12, "family": "Open Sans"}, "title": {"text": "UK Population According to 1851 Census"}, "xaxis": {"type": "category", "range": [-0.5, 8.5], "ticks": "", "title": {"text": "Age Group"}, "showgrid": false, "autorange": false, "gridwidth": 1}, "yaxis": {"type": "linear", "range": [0, 2100000], "title": {"text": "Population in millions"}, "autorange": false}, "legend": {"x": 0.7553351187327474, "y": 0.9191011235955057, "font": {"size": 13}, "borderwidth": 1}, "autosize": true, "template": {"data": {"bar": [{"type": "bar", "marker": {"colorbar": {"ticks": "", "outlinewidth": 0}}}], "table": [{"type": "table", "cells": {"fill": {"color": "#EBF0F8"}, "line": {"color": "white"}}, "header": {"fill": {"color": "#C8D4E3"}, "line": {"color": "white"}}}], "carpet": [{"type": "carpet", "aaxis": {"gridcolor": "#C8D4E3", "linecolor": "#C8D4E3", "endlinecolor": "#2a3f5f", "minorgridcolor": "#C8D4E3", "startlinecolor": "#2a3f5f"}, "baxis": {"gridcolor": "#C8D4E3", "linecolor": "#C8D4E3", "endlinecolor": "#2a3f5f", "minorgridcolor": "#C8D4E3", "startlinecolor": "#2a3f5f"}}], "mesh3d": [{"type": "mesh3d", "colorbar": {"ticks": "", "outlinewidth": 0}}], "contour": [{"type": "contour", "colorbar": {"ticks": "", "outlinewidth": 0}, "autocolorscale": true}], "heatmap": [{"type": "heatmap", "colorbar": {"ticks": "", "outlinewidth": 0}, "autocolorscale": true}], "scatter": [{"type": "scatter", "marker": {"colorbar": {"ticks": "", "outlinewidth": 0}}}], "surface": [{"type": "surface", "colorbar": {"ticks": "", "outlinewidth": 0}}], "heatmapgl": [{"type": "heatmapgl", "colorbar": {"ticks": "", "outlinewidth": 0}}], "histogram": [{"type": "histogram", "marker": {"colorbar": {"ticks": "", "outlinewidth": 0}}}], "parcoords": [{"line": {"colorbar": {"ticks": "", "outlinewidth": 0}}, "type": "parcoords"}], "scatter3d": [{"type": "scatter3d", "marker": {"colorbar": {"ticks": "", "outlinewidth": 0}}}], "scattergl": [{"type": "scattergl", "marker": {"colorbar": {"ticks": "", "outlinewidth": 0}}}], "choropleth": [{"type": "choropleth", "colorbar": {"ticks": "", "outlinewidth": 0}}], "scattergeo": [{"type": "scattergeo", "marker": {"colorbar": {"ticks": "", "outlinewidth": 0}}}], "histogram2d": [{"type": "histogram2d", "colorbar": {"ticks": "", "outlinewidth": 0}, "autocolorscale": true}], "scatterpolar": [{"type": "scatterpolar", "marker": {"colorbar": {"ticks": "", "outlinewidth": 0}}}], "contourcarpet": [{"type": "contourcarpet", "colorbar": {"ticks": "", "outlinewidth": 0}}], "scattercarpet": [{"type": "scattercarpet", "marker": {"colorbar": {"ticks": "", "outlinewidth": 0}}}], "scattermapbox": [{"type": "scattermapbox", "marker": {"colorbar": {"ticks": "", "outlinewidth": 0}}}], "scatterpolargl": [{"type": "scatterpolargl", "marker": {"colorbar": {"ticks": "", "outlinewidth": 0}}}], "scatterternary": [{"type": "scatterternary", "marker": {"colorbar": {"ticks": "", "outlinewidth": 0}}}], "histogram2dcontour": [{"type": "histogram2dcontour", "colorbar": {"ticks": "", "outlinewidth": 0}, "autocolorscale": true}]}, "layout": {"geo": {"bgcolor": "white", "showland": true, "lakecolor": "white", "landcolor": "white", "showlakes": true, "subunitcolor": "#C8D4E3"}, "font": {"color": "#2a3f5f"}, "polar": {"bgcolor": "white", "radialaxis": {"ticks": "", "gridcolor": "#EBF0F8", "linecolor": "#EBF0F8"}, "angularaxis": {"ticks": "", "gridcolor": "#EBF0F8", "linecolor": "#EBF0F8"}}, "scene": {"xaxis": {"ticks": "", "gridcolor": "#DFE8F3", "gridwidth": 2, "linecolor": "#EBF0F8", "zerolinecolor": "#EBF0F8", "showbackground": true, "backgroundcolor": "white"}, "yaxis": {"ticks": "", "gridcolor": "#DFE8F3", "gridwidth": 2, "linecolor": "#EBF0F8", "zerolinecolor": "#EBF0F8", "showbackground": true, "backgroundcolor": "white"}, "zaxis": {"ticks": "", "gridcolor": "#DFE8F3", "gridwidth": 2, "linecolor": "#EBF0F8", "zerolinecolor": "#EBF0F8", "showbackground": true, "backgroundcolor": "white"}}, "title": {"x": 0.05}, "xaxis": {"ticks": "", "gridcolor": "#EBF0F8", "linecolor": "#EBF0F8", "automargin": true, "zerolinecolor": "#EBF0F8", "zerolinewidth": 2}, "yaxis": {"ticks": "", "gridcolor": "#EBF0F8", "linecolor": "#EBF0F8", "automargin": true, "zerolinecolor": "#EBF0F8", "zerolinewidth": 2}, "ternary": {"aaxis": {"ticks": "", "gridcolor": "#DFE8F3", "linecolor": "#A2B1C6"}, "baxis": {"ticks": "", "gridcolor": "#DFE8F3", "linecolor": "#A2B1C6"}, "caxis": {"ticks": "", "gridcolor": "#DFE8F3", "linecolor": "#A2B1C6"}, "bgcolor": "white"}, "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#19d3f3", "#e763fa", "#fecb52", "#ffa15a", "#ff6692", "#b6e880"], "hovermode": "closest", "colorscale": {"diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]], "sequential": [[0, "#0508b8"], [0.0893854748603352, "#1910d8"], [0.1787709497206704, "#3c19f0"], [0.2681564245810056, "#6b1cfb"], [0.3575418994413408, "#981cfd"], [0.44692737430167595, "#bf1cfd"], [0.5363128491620112, "#dd2bfd"], [0.6256983240223464, "#f246fe"], [0.7150837988826816, "#fc67fd"], [0.8044692737430168, "#fe88fc"], [0.8938547486033519, "#fea5fd"], [0.9832402234636871, "#febefe"], [1, "#fec3fe"]], "sequentialminus": [[0, "#0508b8"], [0.0893854748603352, "#1910d8"], [0.1787709497206704, "#3c19f0"], [0.2681564245810056, "#6b1cfb"], [0.3575418994413408, "#981cfd"], [0.44692737430167595, "#bf1cfd"], [0.5363128491620112, "#dd2bfd"], [0.6256983240223464, "#f246fe"], [0.7150837988826816, "#fc67fd"], [0.8044692737430168, "#fe88fc"], [0.8938547486033519, "#fea5fd"], [0.9832402234636871, "#febefe"], [1, "#fec3fe"]]}, "plot_bgcolor": "white", "paper_bgcolor": "white", "shapedefaults": {"line": {"width": 0}, "opacity": 0.4, "fillcolor": "#506784"}, "annotationdefaults": {"arrowhead": 0, "arrowcolor": "#506784", "arrowwidth": 1}}, "themeRef": "PLOTLY_WHITE"}},
+                    frames: [],
+                    config: {"showLink": false, "linkText": "Export to plotly.com", "mapboxAccessToken": "pk.eyJ1IjoiY2hyaWRkeXAiLCJhIjoiY2lxMnVvdm5iMDA4dnhsbTQ5aHJzcGs0MyJ9.X9o_rzNLNesDxdra4neC_A"}
+                });
+                
+           }());
+	</script>
+</body>
+
+</html>
