@@ -1,5 +1,5 @@
-Plotly.d3.csv('/cholera-vis/data/choleraPumpLocations.csv', function (err, pumpLocation) {
-    Plotly.d3.csv('/cholera-vis/data/choleraDeathLocations.csv', function (err, deathLocation) {
+Plotly.d3.csv('/cholera-vis/data/pumpLocations.csv', function (err, pumpLocation) {
+    Plotly.d3.csv('/cholera-vis/data/deathLocations.csv', function (err, deathLocation) {
         let pumpLat = _.map(_.pluck(pumpLocation, 'latitude'), pLat => pLat);
         let pumpLong = _.map(_.pluck(pumpLocation, 'longitude'), pLong => pLong);
         let deathLat = _.map(_.pluck(deathLocation, 'latitude'), dLat => dLat);
