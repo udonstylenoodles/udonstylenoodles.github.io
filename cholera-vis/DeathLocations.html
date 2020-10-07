@@ -9,7 +9,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title>Cholera Fatalities by Age/Sex</title>
+	<title>Death Locations</title>
 
 	<!-- Custom fonts for this template-->
 	<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -24,6 +24,9 @@
 
 	<!-- Plotly js -->
 	<script src="js/plotly.js"></script>
+
+	<!-- Underscore js -->
+	<script src="https://cdn.jsdelivr.net/npm/underscore@1.11.0/underscore-min.js"></script>
 </head>
 
 <body id="page-top">
@@ -49,13 +52,13 @@
 			</li>
 
 			<!-- Nav Item - Age/Sex Data -->
-			<li class="nav-item active">
+			<li class="nav-item">
 				<a class="nav-link" href="AgeSexData.html">
 					<span>Age/Sex Data</span></a>
 			</li>
 
 			<!-- Nav Item - Death Locations -->
-			<li class="nav-item">
+			<li class="nav-item active">
 				<a class="nav-link" href="DeathLocations.html">
 					<span>Death Locations</span></a>
 			</li>
@@ -84,77 +87,45 @@
 
 				<br>
 
+				<!-- Sidebar Toggle (Topbar) -->
+				<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+					<i class="fa fa-bars"></i>
+				</button>
+
+				<!-- Topbar Navbar -->
+				<ul class="navbar-nav ml-auto"></ul>
+
+				</nav>
+				<!-- End of Topbar -->
+
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">Cholera Fatalities by Age/Sex</h1>
+					<h1 class="h3 mb-4 text-gray-800">Cholera Death Locations Near Pumps</h1>
 
 					<!-- Content Row -->
 					<div class="row">
-
-						<div class="col-lg-12">
+						<div class="col">
 							<div class="card shadow mb-4">
 								<div class="card-body">
-									<div class="row">
-										<div class="col-8">
-											<div id="NaplesBarGraph"></div>
-										</div>
-										<div class="col-4">
-											<div id="NaplesTable"></div>
-										</div>
-									</div>
-
+									<h2>1854 London Cholera Outbreak</h2>
+									<div id="DeathLocations" style="height: 600px;"></div>
 								</div>
 							</div>
 						</div>
-
 					</div>
 
-					<!-- Content Row -->
 					<div class="row">
-
-						<div class="col-lg-12">
+						<div class="col">
 							<div class="card shadow mb-4">
 								<div class="card-body">
-									<div class="row">
-										<div class="col-8">
-											<div id="UKBarGraph"></div>
-										</div>
-										<div class="col-4">
-											<div id="UKTable"></div>
-										</div>
-									</div>
-
+									Death markers progress in both size and from color <strong><span style="color: #FDBB84;">#FDBB84
+									</span></strong> to <strong><span style="color: #7F0000;">#7F0000</span></strong> as the amount of deaths gets larger.
 								</div>
 							</div>
 						</div>
-
 					</div>
-
-					<!-- Content Row -->
-					<div class="row">
-
-						<div class="col-lg-12">
-							<div class="card shadow mb-4">
-								<div class="card-body">
-									<div class="row">
-										<div class="col-4">
-											<div id="UKMen"></div>
-										</div>
-										<div class="col-4">
-											<div id="UKWomen"></div>
-										</div>
-										<div class="col-4">
-											<div id="UKPop"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-					</div>
-
 				</div>
 				<!-- /.container-fluid -->
 
@@ -184,10 +155,7 @@
 	<!-- Core plugin JavaScript-->
 	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-	<!-- Custom scripts for all pages-->
-	<script src="js/sb-admin-2.min.js"></script>
-
-	<script src="js/AgeSexData.js"></script>
+	<script src="js/DeathLocations.js"></script>
 </body>
 
 </html>
