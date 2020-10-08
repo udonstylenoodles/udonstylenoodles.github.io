@@ -5,13 +5,13 @@ Plotly.d3.csv('/cholera-vis/data/pumpLocations.csv', function (err, pumpLocation
         let deathLat = _.map(_.pluck(deathLocation, 'latitude'), dLat => dLat);
         let deathLong = _.map(_.pluck(deathLocation, 'longitude'), dLong => dLong);
         let deathNum = _.map(_.pluck(deathLocation, 'death'), dCount => parseInt(dCount));
-        let scale = [
-            ['0.0', '#fdbb84'],
-            ['0.2', '#fc8d59'],
-            ['0.4', '#ef6548'],
-            ['0.6', '#d7301f'],
-            ['0.8', '#b30000'],
-            ['1.0', '#7f0000']
+        let deathColors = [
+            ['0.0', '#fc9272'],
+            ['0.2', '#fb6a4a'],
+            ['0.4', '#ef3b2c'],
+            ['0.6', '#cb181d'],
+            ['0.8', '#a50f15'],
+            ['1.0', '#67000d']
         ];
 
         var data = [
@@ -30,7 +30,7 @@ Plotly.d3.csv('/cholera-vis/data/pumpLocations.csv', function (err, pumpLocation
                 lon: deathLong,
                 marker: {
                     color: deathNum,
-                    colorscale: scale,
+                    colorscale: deathColors,
                     reversescale: false,
                     opacity: 0.9,
                     size: _.map(deathNum, (num) => (num + 7))
