@@ -33,7 +33,7 @@ Plotly.d3.csv('/cholera-vis/data/pumpLocations.csv', function (err, pumpLocation
                     colorscale: deathColors,
                     reversescale: false,
                     opacity: 0.9,
-                    size: _.map(deathNum, (num) => (num + 7))
+                    size: _.map(deathNum, num => Math.sqrt(num) * 6)
                 }
             }
         ];
